@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TodosController extends Controller
 {
-    public function getTodos()
+    public function getTodos(): JsonResponse
     {
         $todos = Todo::paginate(5);
         return response()->json($todos);
     }
 
-    public function getTodo(int $todo)
+    public function getTodo(int $todo): JsonResponse
     {
         $todo = Todo::find($todo);
 
@@ -24,7 +25,7 @@ class TodosController extends Controller
         return response()->json($todo);
     }
 
-    public function postTodo(Request $request) 
+    public function postTodo(Request $request): JsonResponse 
     {
         $this->validate($request, [
             'title' => 'required',
@@ -36,7 +37,7 @@ class TodosController extends Controller
         return response()->json($model, 201);    
     }
 
-    public function deleteTodo(Request $request, int $todo)
+    public function deleteTodo(Request $request, int $todo): JsonResponse
     {
         $todo = Todo::find($todo);
 
@@ -48,7 +49,7 @@ class TodosController extends Controller
         return response()->json([], 204);
     }
 
-    public function postTodoStatus(Request $request, int $todo, string $status)
+    public function postTodoStatus(Request $request, int $todo, string $status): JsonResponse
     {
         if (!$this->validateAvailableStatus($status)) {
             return response()->json(['error' => 'available status: done, undone'], 422);
@@ -67,7 +68,7 @@ class TodosController extends Controller
         return response()->json($todo);
     }
 
-    private function validateAvailableStatus(string $status)
+    private function validateAvailableStatus(string $status): bool
     {
         return in_array($status, ['done', 'undone']);
     }

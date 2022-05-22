@@ -4,7 +4,6 @@ namespace Features\app\Http\Controllers;
 
 use App\Models\Todo;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Tests\TestCase;
 
 class TodoControllerTest extends \Tests\TestCase
 {

@@ -17,6 +17,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+//User Routes
+$router->post('/user/create', 'UserController@createUser');
+
+// Todo Routes
 $router->get('/todos', 'TodosController@getTodos');
 $router->get('/todos/{todo}', 'TodosController@getTodo');
 $router->post('/todos', 'TodosController@postTodo');
